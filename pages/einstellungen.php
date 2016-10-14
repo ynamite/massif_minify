@@ -78,7 +78,7 @@ $buttons = $fragment->parse('core/form/submit.php');
 
 $fragment = new rex_fragment();
 $fragment->setVar('class', 'edit');
-$fragment->setVar('title', $this->i18n('massif_minify_settings'));
+$fragment->setVar('title', $this->i18n('massif_minify_setting'));
 $fragment->setVar('body', $content, false);
 $fragment->setVar('buttons', $buttons, false);
 $content = $fragment->parse('core/page/section.php');

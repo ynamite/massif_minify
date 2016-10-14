@@ -4,19 +4,12 @@ massif_minify_title = MASSIF Minify für Redaxo 5
 massif_minify_setting = Einstellungen
 massif_minify_guide = Anleitung
 massif_minify_aktiv = SCSS Compiler aktiv
-massif_minify_erklaerung_title = Kurzerklärung
 massif_minify_save = Änderung speichern
 massif_minify_saved = Einstellungen wurden gespeichert
 massif_minify_example = Beispiel
 
-info = Info
-license = Lizenz
-help = Hilfe
-changelog = Änderungen
-
-massif_minify_settings = Einstellungen
 massif_minify_css_dir = CSS Pfad
-massif_minify_scss_dir = SASS Pfad
+massif_minify_scss_dir = SCSS Pfad
 massif_minify_js_dir = JS Pfad
 massif_minify_compile_scss = SCSS kompilieren?
 massif_minify_minify_html = HTML komprimieren?
