@@ -4,12 +4,12 @@ author: Yves Torres (ynamite), Starlord
 supportpage: https://github.com/ynamite/massif_minify
 
 page:
-	title: MASSIF Minify
-	perm: massif_minify[]
-	icon: rex-icon fa-compress
-	subpages:
-		einstellungen: { title: 'translate:massif_minify_setting',perm: massif_minify[] }
-		anleitung: { title: 'translate:massif_minify_guide',perm: massif_minify[] }
+    title: MASSIF Minify
+    perm: massif_minify[]
+    icon: rex-icon fa-compress
+    subpages:
+        einstellungen: { title: 'translate:massif_minify_setting',perm: massif_minify[] }
+        anleitung: { title: 'translate:massif_minify_guide',perm: massif_minify[] }
 
 requires:
     redaxo: '^5.2'
