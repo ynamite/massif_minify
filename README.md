@@ -1,4 +1,4 @@
-massif_rewrite
+massif_minify
 ================
 
 Ein Komprimierungs Addon für REDAXO CMS >= 5.0
