@@ -1,7 +1,7 @@
 package: massif_minify
 version: '0.0.9'
 author: Yves Torres (ynamite), Starlord
-supportpage: massif.ch
+supportpage: https://github.com/ynamite/massif_minify
 
 page:
 	title: MASSIF Minify
