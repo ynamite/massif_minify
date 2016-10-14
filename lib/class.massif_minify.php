@@ -167,11 +167,23 @@ class massif_minify {
 
 		$addon = rex_addon::get('massif_minify');
 				
-		//$ep->setSubject(preg_replace(['/<!--(.*)-->/Uis',"/[[:blank:]]+/"], ['',' '], str_replace(["\n","\r","\t"], '', $ep->getSubject())));
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/Minify.php');
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/CSS.php');
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/JS.php');
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/Exception.php');
+			
+		$cssMinifier = new Minify\CSS();
+		$jsMinifier = new Minify\JS();
 		
 		$ep->setSubject(Minify_HTML::minify($ep->getSubject(), array(
-			'cssMinifier' => 'CssMin::minify',
-			'jsMinifier' => 'JSMinPlus::minify',
+			'cssMinifier' => function($css) use ($cssMinifier) {
+				$cssMinifier->add($css);
+				return $cssMinifier->minify();
+			},
+			'jsMinifier' => function($js) use ($jsMinifier){
+				$jsMinifier->add($js);
+				return $jsMinifier->minify();
+			},
 			'xhtml' => false
 		)));
 		
