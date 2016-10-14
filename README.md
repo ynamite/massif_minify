@@ -1,7 +1,7 @@
 massif_minify
 ================
 
-Ein Komprimierungs Addon für REDAXO CMS >= 5.0
+Package für REDAXO CMS >= 5.0
 
 Mit diesem AddOn lassen sich mehreren JS/CSS/SCSS Dateien zu einer, 
 pro Format, einzigen Datei zusammenschliessen um HTTP Request zu minimieren.
