@@ -1,0 +1,31 @@
+
+
+massif_minify_title = MASSIF Minify für Redaxo 5
+massif_minify_setting = Einstellungen
+massif_minify_guide = Anleitung
+massif_minify_aktiv = SCSS Compiler aktiv
+massif_minify_erklaerung_title = Kurzerklärung
+massif_minify_save = Änderung speichern
+massif_minify_saved = Einstellungen wurden gespeichert
+massif_minify_example = Beispiel
+
+info = Info
+license = Lizenz
+help = Hilfe
+changelog = Änderungen
+
+massif_minify_settings = Einstellungen
+massif_minify_css_dir = CSS Pfad
+massif_minify_scss_dir = SASS Pfad
+massif_minify_js_dir = JS Pfad
+massif_minify_compile_scss = SCSS kompilieren?
+massif_minify_minify_html = HTML komprimieren?
+massif_minify_minify_css = CSS komprimieren?
+massif_minify_minify_js = JS komprimieren?
+
+massif_minify_usage_title = Dateien im Template einbinden
+massif_minify_usage_note = Wenn hier unter Einstellungen die Komprimierung für ein jeweiliges Format aktiv ist, werden grundsätzich alle eingebundenen Dateien komprimiert. Wenn man nur bestimmte Dateien komprimieren möchte, kann man die Komprimierung hier deaktivieren und die Komprimierung manuell über die jeweilige Methode aktiveren (siehe Beispiele weiter unten). <br /><br />Folgende Methoden stehen zur Auswahl
+massif_minify_htaccess_note = Damit das Cache-Busting funktioniert, müssen folgende Zeilen in die .htaccess Datei im Frontend-Root gepackt werden
+
+
+perm_general_massif_minify[] = MASSIF Minify

@@ -1,0 +1,17 @@
+package: massif_minify
+version: '0.0.9'
+author: Yves Torres (ynamite), Starlord
+supportpage: massif.ch
+
+page:
+	title: MASSIF Minify
+	perm: massif_minify[]
+	icon: rex-icon fa-compress
+	subpages:
+		einstellungen: { title: 'translate:massif_minify_setting',perm: massif_minify[] }
+		anleitung: { title: 'translate:massif_minify_guide',perm: massif_minify[] }
+
+requires:
+    redaxo: '^5.2'
+    packages:
+        be_style: '^2.1.1'
