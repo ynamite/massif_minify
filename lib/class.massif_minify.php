@@ -15,6 +15,8 @@
 
 use Leafo\ScssPhp\Compiler;
 use Leafo\ScssPhp\Formatter;
+use MatthiasMullie\Minify;
+	
 
 class scss_formatter extends \Leafo\ScssPhp\Formatter\Expanded
 {
@@ -30,13 +32,10 @@ class massif_minify {
 	protected static $jsPath;
 	protected static $minify_js;
 	protected static $minify_css;
-	protected static $rewriterEnabled;
 
 	public static function init() {
 		
 		$addon = rex_addon::get('massif_minify');
-		$rewriter = rex_addon::get('yrewrite');
-		self::$rewriterEnabled = rex_addon::get('yrewrite')->getProperty('status');
 
 	    //throw new rex_exception('test');
 
@@ -299,16 +298,22 @@ class massif_minify {
 	}
 
 	protected static function getMinifiedContent($content, $fileExtension) {
-	
-		if ($fileExtension == 'js') {
-		      // js
-		      $content = JSMinPlus::minify($content);
-		      
-		} elseif ($fileExtension == 'css') {
-		      // css
-		      $content = CssMin::minify($content);
-		      
+		
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/Minify.php');
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/CSS.php');
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/JS.php');
+	    require_once rex_path::addon('massif_minify', 'vendor/minify/src/Exception.php');
+			
+		switch($fileExtension) {
+			case 'css':
+				$minifier = new Minify\CSS();
+			break;
+			case 'js':
+				$minifier = new Minify\JS();
+			break;
 		}
+		$minifier->add($content);
+		$content = $minifier->minify();
 		
 		return $content;
 	}
@@ -338,9 +343,7 @@ class massif_minify {
 	}
 
 	protected static function getFileWithVersionParam($file, $path) {
-		if (!self::$rewriterEnabled) {
-			return $file;
-		}
+
 		$mtime = @filemtime($path . '/' . $file); 
 
 		if ($mtime != false) {
