@@ -180,10 +180,12 @@ class massif_minify {
 				$cssMinifier->add($css);
 				return $cssMinifier->minify();
 			},
+			'jsMinifier' => 'JSMinPlus::minify',
+			/*,
 			'jsMinifier' => function($js) use ($jsMinifier){
 				$jsMinifier->add($js);
 				return $jsMinifier->minify();
-			},
+			},*/
 			'xhtml' => false
 		)));
 		
