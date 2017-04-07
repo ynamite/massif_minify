@@ -10,7 +10,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 use Leafo\ScssPhp\Compiler;
@@ -390,8 +390,14 @@ class massif_minify {
 		} else {
 			// check filemtime of source files
 			foreach ($sourceFiles as $file) {
-				$fileWithPath = $filePath . $file;
-				$fileMTime = @filemtime($fileWithPath);
+				// compile first if scss/less
+				$fileExtension = self::getFileExtension($file);
+				if ($fileExtension == 'scss') {
+					$fileWithPath = self::$scssPath . $file;
+				} else {
+					$fileWithPath = $filePath . $file;
+				}
+				$fileMTime = filemtime($fileWithPath);
 
 				if ($combinedFileMTime == false || $fileMTime > $combinedFileMTime) {
 					// filemtime of one of the source files is newer then of combined file
@@ -433,6 +439,9 @@ class massif_minify {
 				// now combine
 				if (file_exists($fileWithPath)) {
 					$combinedFileContent .= file_get_contents($fileWithPath);
+					if ($fileExtension == 'scss') {
+						unlink($fileWithPath);
+					}
 				} elseif (!self::$minify_css) {
 					$combinedFileContent .= '/* file not found: ' . $fileWithPath . ' */';
 				}
@@ -440,7 +449,7 @@ class massif_minify {
 				if (!self::$minify_css)
 					$combinedFileContent .=  PHP_EOL . PHP_EOL;
 					
-				unlink($fileWithPath);
+				//
 			}
 
 			/*
