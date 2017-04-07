@@ -9,8 +9,8 @@
  *
  * @author studio[at]massif.ch Yves Torres
  *
- * @package redaxo4.3.x, redaxo4.4.x, redaxo4.5.x, redaxo4.6.x, redaxo4.7.x, redaxo5
- * @version 0.0.9
+ * @package redaxo5
+ * @version 1.1.1
  */
 
 use Leafo\ScssPhp\Compiler;
@@ -79,7 +79,8 @@ class massif_minify {
 	
 	public static function getCSSMinFile($file, $vars = array()) {
 		self::$minify_css = true;
-		return self::getCSSFile($file, $vars);
+		$minFile = self::replaceFileExtension($file, 'min.css');
+		return self::getCSSFile($minFile, $vars);
 	}
 	
 	public static function getJSFile($file) {
@@ -92,7 +93,8 @@ class massif_minify {
 
 	public static function getJSMinFile($file) {
 		self::$minify_js = true;
-		return self::getJSFile($file);
+		$minFile = self::replaceFileExtension($file, 'min.js');
+		return self::getJSFile($minFile);
 	}
 
 	public static function getResourceFile($fileWithPath) {
@@ -114,8 +116,9 @@ class massif_minify {
 
 	public static function getCombinedCSSMinFile($combinedFile, $sourceFiles) {
 		self::$minify_css = true;
-	    self::combineFiles($combinedFile, self::$cssPath, $sourceFiles);
-	
+		$combinedFile = self::replaceFileExtension($combinedFile, 'min.css');
+		self::combineFiles($combinedFile, self::$cssPath, $sourceFiles);
+		self::$minify_css = false;
 	    return self::getCSSFile($combinedFile);
 	}
 
@@ -127,8 +130,9 @@ class massif_minify {
 	
 	public static function getCombinedJSMinFile($combinedFile, $sourceFiles) {
 		self::$minify_js = true;
+		$combinedFile = self::replaceFileExtension($combinedFile, 'min.js');
 		self::combineFiles($combinedFile, self::$jsPath, $sourceFiles);
-
+		self::$minify_js = false;
 		return self::_getJSFile($combinedFile);
 	}
 
@@ -412,7 +416,7 @@ class massif_minify {
 				$doCombine = true;
 			}
 		}
-
+		
 		// combine files if necessary
 		if ($doCombine) {
 			foreach ($sourceFiles as $file) {
@@ -435,6 +439,8 @@ class massif_minify {
 				
 				if (!self::$minify_css)
 					$combinedFileContent .=  PHP_EOL . PHP_EOL;
+					
+				unlink($fileWithPath);
 			}
 
 			/*
@@ -445,7 +451,6 @@ class massif_minify {
 				
 			// add hash
 			$combinedFileContent = '/* res_id: ' . md5($hashString) . ' */' . PHP_EOL . PHP_EOL . $combinedFileContent;
-
 			// write combined file
 			$fileHandle = @fopen($combinedFileWithPath, 'w');
 
@@ -453,6 +458,7 @@ class massif_minify {
 				fwrite($fileHandle, $combinedFileContent);
 				fclose($fileHandle);
 			}
+			
 		}
 	}
 

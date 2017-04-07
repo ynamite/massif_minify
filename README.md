@@ -42,6 +42,12 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.1.1 // 07.04.2017
+
+- zusätzliche Funktionen aus resource includer übernommen
+- Bugs mit getCombinedCSSMinFile und getCombinedJSMinFile gefixt (danke @fietstouring & @gut8er)
+
+
 ### Version 1.0.0 // 14.10.2016
 
 - Bugfixes & Release
