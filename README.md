@@ -47,10 +47,8 @@ Last Changes
 - Feature: Output-Pfade können separat festgelegt werden
 - Feature: bei der Komprimierung kann gewählt werden, ob auf 1 Zeile komprimiert wird oder nicht
 - div. Bugfixes
-
-### Version 1.1.3 // 10.04.2017
-
 - Vendor update
+
 
 ### Version 1.1.2 // 07.04.2017
 
