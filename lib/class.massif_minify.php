@@ -10,7 +10,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 use Leafo\ScssPhp\Compiler;
@@ -132,7 +132,6 @@ class massif_minify {
 		self::$minify_js = true;
 		$combinedFile = self::replaceFileExtension($combinedFile, 'min.js');
 		self::combineFiles($combinedFile, self::$jsPath, $sourceFiles);
-		self::$minify_js = false;
 		return self::_getJSFile($combinedFile);
 	}
 
