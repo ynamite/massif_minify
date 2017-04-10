@@ -8,10 +8,13 @@ if (rex_post('config-submit', 'boolean')) {
     $this->setConfig(rex_post('config', [
         ['css_dir', 'string'],
         ['scss_dir', 'string'],
+        ['scss_css_output_dir', 'string'],
         ['js_dir', 'string'],
+        ['js_output_dir', 'string'],
         ['minify_html', 'bool'],
         ['minify_css', 'bool'],
         ['minify_js', 'bool'],
+        ['minify_single_line', 'bool'],
     ]));
 
     echo rex_view::success($this->i18n('massif_minify_saved'));
@@ -32,9 +35,22 @@ $n['field'] = '<input class="form-control" type="text" id="' . $package . 'scss_
 $formElements[] = $n;
 
 $n = [];
+$n['label'] = '<label for="' . $package . 'scss_css_output_dir">' . $this->i18n('massif_minify_scss_css_output_dir') . '</label>';
+$n['field'] = '<input class="form-control" type="text" id="' . $package . 'scss_css_output_dir" name="config[scss_css_output_dir]" value="' . $this->getConfig('scss_css_output_dir') . '" />';
+$n['note'] = rex_i18n::rawMsg('massif_minify_scss_css_output_dir_note', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()])) . '<br />';
+$formElements[] = $n;
+
+$n = [];
 $n['label'] = '<label for="' . $package . 'js_dir">' . $this->i18n('massif_minify_js_dir') . '</label>';
 $n['field'] = '<input class="form-control" type="text" id="' . $package . 'js_dir" name="config[js_dir]" value="' . $this->getConfig('js_dir') . '" />';
 $formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="' . $package . 'js_output_dir">' . $this->i18n('massif_minify_js_output_dir') . '</label>';
+$n['field'] = '<input class="form-control" type="text" id="' . $package . 'js_output_dir" name="config[js_output_dir]" value="' . $this->getConfig('js_output_dir') . '" />';
+$n['note'] = rex_i18n::rawMsg('massif_minify_js_output_dir_note', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()])) . '<br />';
+$formElements[] = $n;
+
 
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
@@ -53,10 +69,15 @@ $n['before'] = '<input type="checkbox" id="' . $package . 'minify_css" name="con
 $formElements[] = $n;
 
 $n = [];
-$n['label'] = '<label for="' . $package . 'minify_js">' . $this->i18n('massif_minify_minify_js') . '</label>';
+$n['label'] = '<label for="' . $package . 'minify_js">' . $this->i18n('massif_minify_minify_js') . '</label><br /><br />';
 $n['before'] = '<input type="checkbox" id="' . $package . 'minify_js" name="config[minify_js]" value="1" ' . ($this->getConfig('minify_js') ? ' checked="checked"' : '') . ' />';
-$n['note'] = rex_i18n::rawMsg('massif_minify_note', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()]));
 $formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="' . $package . 'minify_single_line">' . $this->i18n('massif_minify_single_line') . '</label><p class="help-block rex-note">'.rex_i18n::rawMsg('massif_minify_single_line_note', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()])).'</p>';
+$n['before'] = '<input type="checkbox" id="' . $package . 'minify_single_line" name="config[minify_single_line]" value="1" ' . ($this->getConfig('minify_single_line') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
 
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);

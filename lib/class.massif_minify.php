@@ -10,7 +10,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.1.3
+ * @version 1.2.0
  */
 
 use Leafo\ScssPhp\Compiler;
@@ -26,12 +26,22 @@ class massif_minify {
 	
 	protected static $cssDir;
 	protected static $cssPath;
+	
 	protected static $scssDir;
 	protected static $scssPath;
+	
 	protected static $jsDir;
 	protected static $jsPath;
+
+	protected static $cssOutDir;
+	protected static $cssOutPath;
+
+	protected static $jsOutDir;
+	protected static $jsOutPath;
+	
 	protected static $minify_js;
 	protected static $minify_css;
+	protected static $minify_to_single_line;
 
 	public static function init() {
 		
@@ -41,15 +51,30 @@ class massif_minify {
 
 		$cssDir = $addon->getConfig('css_dir');
 		$scssDir = $addon->getConfig('scss_dir');
+		$cssOutDir = $addon->getConfig('scss_css_output_dir');
+		if(!$cssOutDir) {
+			$cssOutDir = $cssDir;
+		}
+		
 		$jsDir = $addon->getConfig('js_dir');
+		$jsOutDir = $addon->getConfig('js_output_dir');
+		if(!$jsOutDir) {
+			$jsOutDir = $jsDir;
+		}
+		
+		self::$minify_to_single_line = $addon->getConfig('minify_single_line');
 
 		self::$cssDir = self::prepareDir($cssDir);
 		self::$scssDir = self::prepareDir($scssDir);
+		self::$cssOutDir = self::prepareDir($cssOutDir);
 		self::$jsDir = self::prepareDir($jsDir);
+		self::$jsOutDir = self::prepareDir($jsOutDir);
 
 		self::$cssPath = self::preparePath($cssDir);
 		self::$scssPath = self::preparePath($scssDir);
+		self::$cssOutPath = self::preparePath($cssOutDir);
 		self::$jsPath = self::preparePath($jsDir);
+		self::$jsOutPath = self::preparePath($jsOutDir);
 		
 		self::$minify_css = $addon->getConfig('minify_css');
 		self::$minify_js = $addon->getConfig('minify_js');
@@ -65,15 +90,15 @@ class massif_minify {
 			return $file;
 		} else {
 			$fileExtension = self::getFileExtension($file);
+			$combinedFile = self::replaceFileExtension($file, 'min.css');
 
 			if ($fileExtension == 'scss') {
 				$file = self::getCompiledCSSFile($file, $fileExtension, $vars);
 			} elseif(self::$minify_css) {
-				$combinedFile = self::replaceFileExtension($file, 'min.css');
 				return self::getCombinedCSSFile($combinedFile, array($file));
 			}
 
-			return self::$cssDir . self::getFileWithVersionParam($file, self::$cssPath);
+			return self::$cssOutDir . self::getFileWithVersionParam($combinedFile, self::$cssOutPath);
 		}
 	}
 	
@@ -109,7 +134,7 @@ class massif_minify {
 	}
 
 	public static function getCombinedCSSFile($combinedFile, $sourceFiles) {
-		self::combineFiles($combinedFile, self::$cssPath, $sourceFiles);
+		self::combineFiles($combinedFile, self::$cssOutPath, self::$cssPath, $sourceFiles);
 
 		return self::getCSSFile($combinedFile);
 	}
@@ -117,13 +142,13 @@ class massif_minify {
 	public static function getCombinedCSSMinFile($combinedFile, $sourceFiles) {
 		self::$minify_css = true;
 		$combinedFile = self::replaceFileExtension($combinedFile, 'min.css');
-		self::combineFiles($combinedFile, self::$cssPath, $sourceFiles);
+		self::combineFiles($combinedFile, self::$cssOutPath, self::$cssPath, $sourceFiles);
 		self::$minify_css = false;
 	    return self::getCSSFile($combinedFile);
 	}
 
 	public static function getCombinedJSFile($combinedFile, $sourceFiles) {
-		self::combineFiles($combinedFile, self::$jsPath, $sourceFiles);
+		self::combineFiles($combinedFile, self::$jsOutPath, self::$jsPath, $sourceFiles);
 
 		return self::_getJSFile($combinedFile);
 	}
@@ -131,7 +156,7 @@ class massif_minify {
 	public static function getCombinedJSMinFile($combinedFile, $sourceFiles) {
 		self::$minify_js = true;
 		$combinedFile = self::replaceFileExtension($combinedFile, 'min.js');
-		self::combineFiles($combinedFile, self::$jsPath, $sourceFiles);
+		self::combineFiles($combinedFile, self::$jsOutPath, self::$jsPath, $sourceFiles);
 		return self::_getJSFile($combinedFile);
 	}
 
@@ -178,7 +203,7 @@ class massif_minify {
 		$cssMinifier = new Minify\CSS();
 		$jsMinifier = new Minify\JS();
 		
-		$ep->setSubject(Minify_HTML::minify($ep->getSubject(), array(
+		$html = Minify_HTML::minify($ep->getSubject(), array(
 			'cssMinifier' => function($css) use ($cssMinifier) {
 				$cssMinifier->add($css);
 				return $cssMinifier->minify();
@@ -190,7 +215,13 @@ class massif_minify {
 				return $jsMinifier->minify();
 			},*/
 			'xhtml' => false
-		)));
+		));
+		if(self::$minify_to_single_line) {
+			$html = preg_replace(['/<!--(.*)-->/Uis',"/[[:blank:]]+/"], ['',' '], str_replace(["\n","\r","\t"], ' ', $html));
+		} 
+
+		$ep->setSubject($html);
+		unset($html);
 		
 	}
 	
@@ -198,7 +229,7 @@ class massif_minify {
 		if (self::isHttpAddress($file)) {
 			return $file;
 		} else {
-			return self::$jsDir . self::getFileWithVersionParam($file, self::$jsPath);	
+			return self::$jsOutDir . self::getFileWithVersionParam($file, self::$jsOutPath);	
 		}
 	}
 
@@ -222,10 +253,10 @@ class massif_minify {
 
 	protected static function getCompiledCSSFile($sourceFile, $sourceFileType, $vars = array()) {
 	
-	    $cssFile = self::replaceFileExtension($sourceFile, 'css');
+	    $cssFile = self::replaceFileExtension($sourceFile, 'min.css');
 
 	    $sourceFileWithPath = self::$scssPath . $sourceFile;
-	    $cssFileWithPath = self::$cssPath . $cssFile;
+	    $cssFileWithPath = self::$cssOutPath . $cssFile;
 
 	    $cssFileMTime = @filemtime($cssFileWithPath);
 		$sourceFileMTime = 0;
@@ -240,7 +271,6 @@ class massif_minify {
 		        }
 		    }
 		}            
-	
 	    if ($cssFileMTime == false || $sourceFileMTime > $cssFileMTime) {
 	          // compile scss
 	          self::compileCSS($sourceFileWithPath, $cssFileWithPath, $sourceFileType, $vars);
@@ -370,9 +400,9 @@ class massif_minify {
 		}
 	}
 
-	protected static function combineFiles($combinedFile, $filePath, $sourceFiles = array()) {
+	protected static function combineFiles($combinedFile, $outPath, $filePath, $sourceFiles = array()) {
 		$combinedFileContent = '';
-		$combinedFileWithPath = $filePath . $combinedFile;
+		$combinedFileWithPath = $outPath . $combinedFile;
 		$combinedFileMTime = @filemtime($combinedFileWithPath);
 		$doCombine = false;
 		$hashString = '';
@@ -459,6 +489,9 @@ class massif_minify {
 				
 			// add hash
 			$combinedFileContent = '/* res_id: ' . md5($hashString) . ' */' . PHP_EOL . PHP_EOL . $combinedFileContent;
+			if(self::$minify_to_single_line) {
+				$combinedFileContent = preg_replace(['/<!--(.*)-->/Uis',"/[[:blank:]]+/"], ['',' '], str_replace(["\n","\r","\t"], ' ', $combinedFileContent));
+			} 
 			// write combined file
 			$fileHandle = @fopen($combinedFileWithPath, 'w');
 

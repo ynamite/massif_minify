@@ -42,6 +42,12 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.2.0 // 10.04.2017
+
+- Feature: Output-Pfade können separat festgelegt werden
+- Feature: bei der Komprimierung kann gewählt werden, ob auf 1 Zeile komprimiert wird oder nicht
+- div. Bugfixes
+
 ### Version 1.1.3 // 10.04.2017
 
 - Vendor update

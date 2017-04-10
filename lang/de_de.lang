@@ -1,5 +1,3 @@
-
-
 massif_minify_title = MASSIF Minify für Redaxo 5
 massif_minify_setting = Einstellungen
 massif_minify_guide = Anleitung
@@ -10,11 +8,19 @@ massif_minify_example = Beispiel
 
 massif_minify_css_dir = CSS Pfad
 massif_minify_scss_dir = SCSS Pfad
+massif_minify_scss_css_output_dir = CSS Output Pfad
+massif_minify_scss_css_output_dir_note = Optional. Wenn leer gleich CSS Pfad
+
 massif_minify_js_dir = JS Pfad
-massif_minify_compile_scss = SCSS kompilieren?
+massif_minify_js_output_dir = JS Output Pfad
+massif_minify_js_output_dir_note = Optional. Wenn leer gleich JS Pfad
+
 massif_minify_minify_html = HTML komprimieren?
 massif_minify_minify_css = CSS komprimieren?
 massif_minify_minify_js = JS komprimieren?
+
+massif_minify_single_line = Wo möglich auf 1 Zeile komprimieren? 
+massif_minify_single_line_note = Wichtig: Betrifft HTML/CSS/JS. Der Komprimierungsgrad ist in beiden Fällen praktisch identisch.
 
 massif_minify_usage_title = Dateien im Template einbinden
 massif_minify_usage_note = Wenn hier unter Einstellungen die Komprimierung für ein jeweiliges Format aktiv ist, werden grundsätzich alle eingebundenen Dateien komprimiert. Wenn man nur bestimmte Dateien komprimieren möchte, kann man die Komprimierung hier deaktivieren und die Komprimierung manuell über die jeweilige Methode aktiveren (siehe Beispiele weiter unten). <br /><br />Folgende Methoden stehen zur Auswahl

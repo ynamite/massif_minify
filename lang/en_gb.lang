@@ -1,5 +1,3 @@
-
-
 massif_minify_title = MASSIF Minify for Redaxo 5
 massif_minify_setting = Settings
 massif_minify_guide = Manual
@@ -10,11 +8,19 @@ massif_minify_example = Example
 
 massif_minify_css_dir = CSS path
 massif_minify_scss_dir = SCSS path
+massif_minify_scss_css_output_dir = CSS output path
+massif_minify_scss_css_output_dir_note = Optional. Equal to CSS path if empty
+
 massif_minify_js_dir = JS path
-massif_minify_compile_scss = Compile SCSS?
+massif_minify_js_output_dir = JS output path
+massif_minify_js_output_dir_note = Optional. Equal to JS path if empty
+
 massif_minify_minify_html = Compress HTML?
 massif_minify_minify_css = Compres CSS?
 massif_minify_minify_js = Compress JS?
+
+massif_minify_single_line = Trim to 1 line where possible
+massif_minify_single_line_note = Important: applies to HTML/CSS/JS. The level of compression is about the same in both cases
 
 massif_minify_usage_title = Link files in templates
 massif_minify_usage_note = If compression is set to active for a certain filetype, all files of this type will be compressed. If only certain files should be compressed, deactive the compression here and manually activate the compression for a certain file using the appropriate method (see examples below). <br /><br />The following methods are available
