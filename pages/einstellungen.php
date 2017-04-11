@@ -27,11 +27,13 @@ $formElements = [];
 $n = [];
 $n['label'] = '<label for="' . $package . 'css_dir">' . $this->i18n('massif_minify_css_dir') . '</label>';
 $n['field'] = '<input class="form-control" type="text" id="' . $package . 'css_dir" name="config[css_dir]" value="' . $this->getConfig('css_dir') . '" />';
+$n['note'] = rex_i18n::rawMsg('massif_minify_path_scheme_css', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()]));
 $formElements[] = $n;
 
 $n = [];
 $n['label'] = '<label for="' . $package . 'css_dir">' . $this->i18n('massif_minify_scss_dir') . '</label>';
 $n['field'] = '<input class="form-control" type="text" id="' . $package . 'scss_dir" name="config[scss_dir]" value="' . $this->getConfig('scss_dir') . '" />';
+$n['note'] = rex_i18n::rawMsg('massif_minify_path_scheme_scss', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()])) ;
 $formElements[] = $n;
 
 $n = [];
@@ -43,12 +45,17 @@ $formElements[] = $n;
 $n = [];
 $n['label'] = '<label for="' . $package . 'js_dir">' . $this->i18n('massif_minify_js_dir') . '</label>';
 $n['field'] = '<input class="form-control" type="text" id="' . $package . 'js_dir" name="config[js_dir]" value="' . $this->getConfig('js_dir') . '" />';
+$n['note'] = rex_i18n::rawMsg('massif_minify_path_scheme_js', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()]));
 $formElements[] = $n;
 
 $n = [];
 $n['label'] = '<label for="' . $package . 'js_output_dir">' . $this->i18n('massif_minify_js_output_dir') . '</label>';
 $n['field'] = '<input class="form-control" type="text" id="' . $package . 'js_output_dir" name="config[js_output_dir]" value="' . $this->getConfig('js_output_dir') . '" />';
 $n['note'] = rex_i18n::rawMsg('massif_minify_js_output_dir_note', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()])) . '<br />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<p style="margin: 0">' . $this->i18n('massif_minify_options') . '</p>';
 $formElements[] = $n;
 
 

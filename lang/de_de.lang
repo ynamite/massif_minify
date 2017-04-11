@@ -15,6 +15,11 @@ massif_minify_js_dir = JS Pfad
 massif_minify_js_output_dir = JS Output Pfad
 massif_minify_js_output_dir_note = Optional. Wenn leer gleich JS Pfad
 
+massif_minify_path_scheme_css = zBsp: resources/assets/css/
+massif_minify_path_scheme_scss = zBsp: resources/assets/scss/
+massif_minify_path_scheme_js = zBsp: resources/assets/js/
+
+massif_minify_options = Optionen
 massif_minify_minify_html = HTML komprimieren?
 massif_minify_minify_css = CSS komprimieren?
 massif_minify_minify_js = JS komprimieren?

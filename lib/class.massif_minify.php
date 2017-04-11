@@ -340,10 +340,7 @@ class massif_minify {
 		 	$compiledCSS = self::getMinifiedContent($compiledCSS, 'css');
 	
 	    // write css
-	    $fileHandle = fopen($cssFileWithPath, 'w');
-	    fwrite($fileHandle, $compiledCSS);
-	    fclose($fileHandle);
-	    #file_put_contents($cssFileWithPath, $compiledCSS);
+	    rex_file::put($cssFileWithPath, $compiledCSS);
 	}
 
 	protected static function getMinifiedContent($content, $fileExtension) {
@@ -372,6 +369,7 @@ class massif_minify {
 	}
 
 	protected static function preparePath($dir) {
+		rex_dir::create($dir);
 		return rex_path::frontend($dir);
 	}
 
@@ -495,12 +493,7 @@ class massif_minify {
 				$combinedFileContent = preg_replace(['/<!--(.*)-->/Uis',"/[[:blank:]]+/"], ['',' '], str_replace(["\n","\r","\t"], ' ', $combinedFileContent));
 			} 
 			// write combined file
-			$fileHandle = @fopen($combinedFileWithPath, 'w');
-
-			if ($fileHandle != false) {
-				fwrite($fileHandle, $combinedFileContent);
-				fclose($fileHandle);
-			}
+			rex_file::put($combinedFileWithPath, $combinedFileContent);
 			
 		}
 	}
