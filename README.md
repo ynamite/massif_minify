@@ -42,6 +42,11 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.2.1 // 11.04.2017
+
+- more bugfixing ftw
+
+
 ### Version 1.2.0 // 10.04.2017
 
 - Feature: Output-Pfade können separat festgelegt werden

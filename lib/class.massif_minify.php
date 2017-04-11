@@ -10,7 +10,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 use Leafo\ScssPhp\Compiler;
@@ -90,15 +90,14 @@ class massif_minify {
 			return $file;
 		} else {
 			$fileExtension = self::getFileExtension($file);
-			$combinedFile = self::replaceFileExtension($file, 'min.css');
 
 			if ($fileExtension == 'scss') {
 				$file = self::getCompiledCSSFile($file, $fileExtension, $vars);
 			} elseif(self::$minify_css) {
-				return self::getCombinedCSSFile($combinedFile, array($file));
+				return self::getCombinedCSSMinFile($file, array($file));
 			}
 
-			return self::$cssOutDir . self::getFileWithVersionParam($combinedFile, self::$cssOutPath);
+			return self::$cssOutDir . self::getFileWithVersionParam($file, self::$cssOutPath);
 		}
 	}
 	
@@ -148,6 +147,9 @@ class massif_minify {
 	}
 
 	public static function getCombinedJSFile($combinedFile, $sourceFiles) {
+		if(self::$minify_js) {
+			$combinedFile = self::replaceFileExtension($combinedFile, 'min.js');
+		}
 		self::combineFiles($combinedFile, self::$jsOutPath, self::$jsPath, $sourceFiles);
 
 		return self::_getJSFile($combinedFile);
