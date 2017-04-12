@@ -42,6 +42,10 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.2.2 // 12.04.2017
+
+- fixed rex_dir, nicht mehr rekursiv
+
 ### Version 1.2.1 // 11.04.2017
 
 - more bugfixing ftw

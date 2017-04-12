@@ -15,13 +15,14 @@ massif_minify_js_dir = JS path
 massif_minify_js_output_dir = JS output path
 massif_minify_js_output_dir_note = Optional. Equal to JS path if empty
 
-massif_minify_minify_html = Compress HTML?
-massif_minify_minify_css = Compres CSS?
-massif_minify_minify_js = Compress JS?
-
 massif_minify_path_scheme_css = Ex.: resources/assets/css/
 massif_minify_path_scheme_scss = Ex.: resources/assets/scss/
 massif_minify_path_scheme_js = Ex.: resources/assets/js/
+
+massif_minify_options = Options
+massif_minify_minify_html = Compress HTML?
+massif_minify_minify_css = Compres CSS?
+massif_minify_minify_js = Compress JS?
 
 massif_minify_single_line = Trim to 1 line where possible
 massif_minify_single_line_note = Important: applies to HTML/CSS/JS. The level of compression is about the same in both cases

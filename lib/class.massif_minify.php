@@ -10,7 +10,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.2.1
+ * @version 1.2.2
  */
 
 use Leafo\ScssPhp\Compiler;
