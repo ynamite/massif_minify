@@ -369,7 +369,7 @@ class massif_minify {
 	}
 
 	protected static function preparePath($dir) {
-		rex_dir::create($dir);
+		rex_dir::create($dir, false);
 		return rex_path::frontend($dir);
 	}
 
