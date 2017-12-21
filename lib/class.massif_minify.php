@@ -109,8 +109,8 @@ class massif_minify {
 	
 	public static function getJSFile($file) {
 		if(self::$minify_js) {
-			$combinedFile = self::replaceFileExtension($file, 'min.js');
-			return self::getCombinedJSFile($combinedFile, array($file));
+			//$combinedFile = self::replaceFileExtension($file, 'min.js');
+			return self::getCombinedJSFile($file, array($file));
 		}
 		return self::_getJSFile($file);
 	}
@@ -499,13 +499,8 @@ class massif_minify {
 	}
 
 	protected static function simpleJSMinify($code) {
-		// strip js comments out
-		$minifiedCode = preg_replace('/#.*/', '', preg_replace('#//.*#', '', preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', '', ($code))));
-
-		// minified code
-		$minifiedCode = trim(preg_replace("/\s+/S", " ", $minifiedCode));
-
-		return $minifiedCode;
+		
+		return self::getMinifiedContent($code, 'js');
 	}
 
 	protected static function isHttpAddress($file) {

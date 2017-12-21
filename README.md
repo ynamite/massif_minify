@@ -29,6 +29,13 @@ Installation
 * In den REDAXO 5 AddOnordner legen /redaxo/src/addons/ oder über das REDAXO Backend installieren und aktivieren
 * Im massif_minify die Pfade eintragen und gewünschten Einstellungen vornehmen
 * In den gewünschten Templates die gewünschte Addon Methode aufrufen, siehe Beispiele unter "Anleitung" im Addon
+* falls es Probleme mit MIME-Types o.ä. gibt, bzw. die CSS/JS Dateien beim Aufruf der Seite nicht geladen/gefunden werden können, kann man versuchen eine Rewrite Base in der .htaccess Datei zu setzen:
+
+```
+<IfModule mod_rewrite.c>
+RewriteBase /
+</IfModule mod_rewrite.c>
+``` 
 
 
 Bugs & Feature-Requests
