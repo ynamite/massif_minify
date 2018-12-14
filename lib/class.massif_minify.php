@@ -43,7 +43,15 @@ class massif_minify {
 	protected static $minify_css;
 	protected static $minify_to_single_line;
 
+	protected static $absolute_paths;
+
 	public static function init() {
+		
+		$search_it_indexer = rex_get('search_it_build_index','string');
+		$search_it_highlighter = rex_get('search_highlighter','string');
+		if($search_it_indexer == "" && $search_it_highlighter != "") {
+			$search_it_indexer = 'search_it_highlighter';
+		}
 		
 		$addon = rex_addon::get('massif_minify');
 
@@ -78,8 +86,10 @@ class massif_minify {
 		
 		self::$minify_css = $addon->getConfig('minify_css');
 		self::$minify_js = $addon->getConfig('minify_js');
-		
-	    if ($addon->getConfig('minify_html') && !rex::isBackend()) {
+
+		self::$absolute_paths = $addon->getConfig('absolute_paths');
+
+	    if ($addon->getConfig('minify_html') && !rex::isBackend() && $search_it_indexer == "") {
 			
 			rex_extension::register('OUTPUT_FILTER', 'massif_minify::minifyHTML', rex_extension::LATE);
 	    }
@@ -96,6 +106,9 @@ class massif_minify {
 			} elseif(self::$minify_css) {
 				return self::getCombinedCSSMinFile($file, array($file));
 			}
+
+			if(self::$absolute_paths)
+				self::$cssOutDir = rtrim(rex::getServer(), "/") . self::$cssOutDir;
 
 			return self::$cssOutDir . self::getFileWithVersionParam($file, self::$cssOutPath);
 		}
@@ -146,6 +159,30 @@ class massif_minify {
 	    return self::getCSSFile($combinedFile);
 	}
 
+	public static function getCSSCodeFromTemplate($templateId, $simpleMinify = true) {
+		$template = new rex_template($templateId);
+
+		return self::getCSSCode($template->getFile(), $simpleMinify);
+	}
+
+	protected static function getCSSCode($includeFileWithPath, $simpleMinify = true) {
+		$interpretedPhp = '';
+
+		// interpret css as php
+		ob_start();
+
+		@include($includeFileWithPath);
+		$interpretedPhp = ob_get_contents();
+
+		ob_end_clean();
+
+		if ($simpleMinify) {
+			$interpretedPhp = self::getMinifiedContent($interpretedPhp, 'css');
+		} 
+
+		return $interpretedPhp;
+	}
+	
 	public static function getCombinedJSFile($combinedFile, $sourceFiles) {
 		if(self::$minify_js) {
 			$combinedFile = self::replaceFileExtension($combinedFile, 'min.js');
@@ -179,7 +216,7 @@ class massif_minify {
 			  return $file;
 				
 		$file = self::getCompiledCSSFile($file, $fileExtension, $vars);
-		
+
 		return self::$cssDir . self::getFileWithVersionParam($file, self::$cssPath);
 	}
 
@@ -209,9 +246,9 @@ class massif_minify {
 			'cssMinifier' => function($css) use ($cssMinifier) {
 				$cssMinifier->add($css);
 				return $cssMinifier->minify();
-			},
+			},/*
 			'jsMinifier' => 'JSMinPlus::minify',
-			/*,
+			,
 			'jsMinifier' => function($js) use ($jsMinifier){
 				$jsMinifier->add($js);
 				return $jsMinifier->minify();
@@ -231,6 +268,9 @@ class massif_minify {
 		if (self::isHttpAddress($file)) {
 			return $file;
 		} else {
+			if(self::$absolute_paths)
+				self::$jsOutDir = rtrim(rex::getServer(), "/") . self::$jsOutDir;
+
 			return self::$jsOutDir . self::getFileWithVersionParam($file, self::$jsOutPath);	
 		}
 	}

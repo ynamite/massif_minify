@@ -27,6 +27,8 @@ massif_minify_minify_js = Compress JS?
 massif_minify_single_line = Trim to 1 line where possible
 massif_minify_single_line_note = Important: applies to HTML/CSS/JS. The level of compression is about the same in both cases
 
+massif_minify_absolute_paths = use absolute paths
+
 massif_minify_usage_title = Link files in templates
 massif_minify_usage_note = If compression is set to active for a certain filetype, all files of this type will be compressed. If only certain files should be compressed, deactive the compression here and manually activate the compression for a certain file using the appropriate method (see examples below). <br /><br />The following methods are available
 massif_minify_htaccess_note = For cache-busting to work, you have to add the following lines to your .htacces file in the frontend root

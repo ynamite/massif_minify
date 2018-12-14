@@ -49,6 +49,13 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.2.3 // 14.12.2018
+
+- fixed minified inline JS content -> erstmal deaktiviert bis eine funktionierende Alternative gefunden wird 
+- getCSSCodeFromTemplate hinzugefügt -> getCSSCodeFromTemplate($templateId, $simpleMinify = true); Danke für den Code Danke @fietstouring
+- Config Option hinzugefügt für Absolute Pfade
+- Minify Vendor Update auf 1.3.61
+
 ### Version 1.2.2 // 12.04.2017
 
 - fixed rex_dir, nicht mehr rekursiv

@@ -15,6 +15,7 @@ if (rex_post('config-submit', 'boolean')) {
         ['minify_css', 'bool'],
         ['minify_js', 'bool'],
         ['minify_single_line', 'bool'],
+        ['absolute_paths', 'bool'],
     ]));
 
     echo rex_view::success($this->i18n('massif_minify_saved'));
@@ -83,6 +84,11 @@ $formElements[] = $n;
 $n = [];
 $n['label'] = '<label for="' . $package . 'minify_single_line">' . $this->i18n('massif_minify_single_line') . '</label><p class="help-block rex-note">'.rex_i18n::rawMsg('massif_minify_single_line_note', rex_url::backendPage('packages', ['subpage' => 'help', 'package' => $this->getPackageId()])).'</p>';
 $n['before'] = '<input type="checkbox" id="' . $package . 'minify_single_line" name="config[minify_single_line]" value="1" ' . ($this->getConfig('minify_single_line') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="' . $package . 'absolute_paths">' . $this->i18n('absolute_paths') . '</label><br /><br />';
+$n['before'] = '<input type="checkbox" id="' . $package . 'absolute_paths" name="config[absolute_paths]" value="1" ' . ($this->getConfig('absolute_paths') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 
