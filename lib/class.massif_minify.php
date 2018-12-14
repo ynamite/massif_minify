@@ -108,9 +108,9 @@ class massif_minify {
 			}
 
 			if(self::$absolute_paths)
-				self::$cssOutDir = rtrim(rex::getServer(), "/") . self::$cssOutDir;
-
-			return self::$cssOutDir . self::getFileWithVersionParam($file, self::$cssOutPath);
+				return rtrim(rex::getServer(), "/") . self::$cssOutDir . self::getFileWithVersionParam($file, self::$cssOutPath);
+			else
+				return self::$cssOutDir . self::getFileWithVersionParam($file, self::$cssOutPath);
 		}
 	}
 	
@@ -269,9 +269,9 @@ class massif_minify {
 			return $file;
 		} else {
 			if(self::$absolute_paths)
-				self::$jsOutDir = rtrim(rex::getServer(), "/") . self::$jsOutDir;
-
-			return self::$jsOutDir . self::getFileWithVersionParam($file, self::$jsOutPath);	
+				return rtrim(rex::getServer(), "/") . self::$jsOutDir . self::getFileWithVersionParam($file, self::$jsOutPath);	
+			else
+				return self::$jsOutDir . self::getFileWithVersionParam($file, self::$jsOutPath);	
 		}
 	}
 
