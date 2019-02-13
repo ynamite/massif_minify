@@ -530,7 +530,7 @@ class massif_minify {
 			// add hash
 			$combinedFileContent = '/* res_id: ' . md5($hashString) . ' */' . PHP_EOL . PHP_EOL . $combinedFileContent;
 			if(self::$minify_to_single_line) {
-				$combinedFileContent = preg_replace(['/<!--(.*)-->/Uis',"/[[:blank:]]+/"], ['',' '], str_replace(["\n","\r","\t"], ' ', $combinedFileContent));
+				$combinedFileContent = preg_replace(['/<!--(.*)-->/Uis',"/[[:blank:]]+/"], ['',' '], str_replace(["\r","\t"], ' ', $combinedFileContent));
 			} 
 			// write combined file
 			rex_file::put($combinedFileWithPath, $combinedFileContent);
