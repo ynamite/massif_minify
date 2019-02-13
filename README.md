@@ -49,6 +49,10 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.2.4 // 13.02.2019
+
+- Hotfix for JS single line concatenation
+
 ### Version 1.2.3 // 14.12.2018
 
 - fixed minified inline JS content -> erstmal deaktiviert bis eine funktionierende Alternative gefunden wird 
