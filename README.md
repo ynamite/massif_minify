@@ -49,6 +49,10 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 Last Changes
 -------
 
+### Version 1.2.4-Hotfix 2 // 15.02.2019
+
+- Hotfix for JS single line concatenation
+
 ### Version 1.2.4 // 13.02.2019
 
 - Hotfix for JS single line concatenation
