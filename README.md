@@ -1,7 +1,7 @@
 massif_minify
 ================
 
-Package für REDAXO CMS >= 5.0
+Package für REDAXO CMS >= 5.9.0
 
 Mit diesem AddOn lassen sich mehreren JS/CSS/SCSS Dateien zu einer, 
 pro Format, einzigen Datei zusammenschliessen um HTTP Request zu minimieren.
@@ -18,7 +18,7 @@ Funktionsliste
 
 * Kombinieren von mehreren JS/CSS/SCSS Dateien zu einer einzigen Datei um HTTP Request zu minimieren
 * Versions-String Mechanismus damit trotz Caching immer die neuste Version einer JS/CSS Datei heruntergeladen wird
-* Integrierter SCSS (SASS) Compiler
+* Integriert den Redaxo SCSS (SASS) Compiler
 * Automatische Neukompilierung sowie Neukombinierung der Dateien bei Änderungen der Quell-Dateien
 * Einbindung von JavaScript Code aus einem REDAXO Template (oder einer Datei) heraus inkl. PHP Interpretierung
 
@@ -48,6 +48,12 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 
 Last Changes
 -------
+
+### Version 1.3.0 // 05.02.2020
+
+- requirements raised to Redaxo >=5.9.0
+- Fixed class namespace for ScssPhp
+
 
 ### Version 1.2.4-Hotfix // 15.02.2019
 

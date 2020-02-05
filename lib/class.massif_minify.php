@@ -10,17 +10,19 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.2.2
+ * @version 1.3.0
  */
 
-use Leafo\ScssPhp\Compiler;
-use Leafo\ScssPhp\Formatter;
-use MatthiasMullie\Minify;
-	
+use MatthiasMullie\Minify;		
+use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Formatter\Compressed;
 
-class scss_formatter extends \Leafo\ScssPhp\Formatter\Expanded
-{
-}
+if(class_exists(Compressed::class)) {
+	class scss_formatter extends ScssPhp\ScssPhp\Formatter\Compressed
+	{
+	}
+} else 
+	return;
 	
 class massif_minify {
 	

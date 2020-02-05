@@ -7,10 +7,18 @@ $content = '';
 $setup = '<h3>.htaccess</h3>
             <p>' . $this->i18n('massif_minify_htaccess_note') . ':<br /><br />
             
-            '.highlight_string('<IfModule mod_rewrite.c>
+            '.highlight_string('Apache:
+            <IfModule mod_rewrite.c>
     # REWRITE RULE FOR JS/CSS VERSIONING
-	RewriteRule ^(.*)\.\d{10}\.(css|js)$ $1.$2 [L]
-</IfModule>', true).'
+    RewriteRule ^(.*)\.[0-9]+\.(css|js)$ $1.$2 [L]
+</IfModule>
+
+Oder
+
+NGINX
+
+# REWRITE RULE FOR JS/CSS VERSIONING
+rewrite "^/(.*)\.[0-9]+\.(css|js)$" /$1.$2 last;', true).'
             </p>
             <h3>' . $this->i18n('massif_minify_usage_title') . '</h3>
             <p>' . $this->i18n('massif_minify_usage_note') . ':<br /><br />
