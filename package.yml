@@ -1,5 +1,5 @@
 package: massif_minify
-version: '1.3.0'
+version: '1.3.1'
 author: Yves Torres (ynamite), Starlord
 supportpage: https://github.com/ynamite/massif_minify
 
@@ -12,6 +12,6 @@ page:
         anleitung: { title: 'translate:massif_minify_guide',perm: massif_minify[] }
 
 requires:
-    redaxo: '^5.9'
+    redaxo: '>=5.9, <6'
     packages:
-        be_style: '^2.9.0'
+        be_style: '>=2.9, <4'

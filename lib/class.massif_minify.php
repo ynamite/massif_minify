@@ -122,18 +122,17 @@ class massif_minify {
 		return self::getCSSFile($minFile, $vars);
 	}
 	
-	public static function getJSFile($file) {
-		if(self::$minify_js) {
-			//$combinedFile = self::replaceFileExtension($file, 'min.js');
+	public static function getJSFile($file, $_minify = null) {
+		$minify = ($_minify !== null) ? $_minify : self::$minify_js;
+		if($minify) {
 			return self::getCombinedJSFile($file, array($file));
 		}
 		return self::_getJSFile($file);
 	}
 
 	public static function getJSMinFile($file) {
-		self::$minify_js = true;
 		$minFile = self::replaceFileExtension($file, 'min.js');
-		return self::getJSFile($minFile);
+		return self::getJSFile($minFile, true);
 	}
 
 	public static function getResourceFile($fileWithPath) {
@@ -340,6 +339,7 @@ class massif_minify {
 	
 	    // strip comments out
 	    $sourceFileContent = self::stripCSSComments($sourceFileContent);
+	    
 	
 	    // get file path
 	    $path = pathinfo($sourceFileWithPath);
@@ -378,9 +378,11 @@ class massif_minify {
 	    /*
 	     * min
 	     */
+	     
 		 if(self::$minify_css)
 		 	$compiledCSS = self::getMinifiedContent($compiledCSS, 'css');
 	
+
 	    // write css
 	    rex_file::put($cssFileWithPath, $compiledCSS);
 	}
