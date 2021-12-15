@@ -42,6 +42,11 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 
 ## Last Changes
 
+### Version 1.3.2 // 15.12.2021
+
+-   added yrewrite multidomain capability
+-   improved PHP 8 compatibility
+
 ### Version 1.3.1 // 18.11.2021
 
 -   fixed min be_style requirements
