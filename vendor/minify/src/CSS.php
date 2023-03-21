@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CSS Minifier
+ * CSS Minifier.
  *
  * Please report bugs on https://github.com/matthiasmullie/minify/issues
  *
@@ -13,15 +13,14 @@
 namespace MatthiasMullie\Minify;
 
 use MatthiasMullie\Minify\Exceptions\FileImportException;
-use MatthiasMullie\PathConverter\ConverterInterface;
 use MatthiasMullie\PathConverter\Converter;
+use MatthiasMullie\PathConverter\ConverterInterface;
 
 /**
- * CSS minifier
+ * CSS minifier.
  *
  * Please report bugs on https://github.com/matthiasmullie/minify/issues
  *
- * @package Minify
  * @author Matthias Mullie <minify@mullie.eu>
  * @author Tijs Verkoyen <minify@verkoyen.eu>
  * @copyright Copyright (c) 2012, Matthias Mullie. All rights reserved
@@ -107,8 +106,8 @@ class CSS extends Minify
     /**
      * Combine CSS from import statements.
      *
-     * @import's will be loaded and their content merged into the original file,
-     * to save HTTP requests.
+     * Import statements will be loaded and their content merged into the original
+     * file, to save HTTP requests.
      *
      * @param string   $source  The file to combine imports for
      * @param string   $content The CSS content to combine imports for
@@ -294,7 +293,7 @@ class CSS extends Minify
      * Perform CSS optimizations.
      *
      * @param string[optional] $path    Path to write the data to
-     * @param string[]         $parents Parent paths, for circular reference checks
+     * @param string[] $parents Parent paths, for circular reference checks
      *
      * @return string The minified data
      */
@@ -685,7 +684,7 @@ class CSS extends Minify
 
     /**
      * Replace all occurrences of functions that may contain math, where
-     * whitespace around operators needs to be preserved (e.g. calc, clamp)
+     * whitespace around operators needs to be preserved (e.g. calc, clamp).
      */
     protected function extractMath()
     {
@@ -705,11 +704,11 @@ class CSS extends Minify
             // instead, it'll match a larger portion of code to where it's certain that
             // the calc() musts have ended, and we'll figure out which is the correct
             // closing parenthesis here, by counting how many have opened
-            for ($i = 0; $i < $length; $i++) {
+            for ($i = 0; $i < $length; ++$i) {
                 $char = $match[2][$i];
                 $expr .= $char;
                 if ($char === '(') {
-                    $opened++;
+                    ++$opened;
                 } elseif ($char === ')' && --$opened === 0) {
                     break;
                 }
@@ -723,7 +722,7 @@ class CSS extends Minify
             // and since we've captured more code than required, we may have some leftover
             // calc() in here too - go recursive on the remaining but of code to go figure
             // that out and extract what is needed
-            $rest = str_replace($function . $expr, '', $match[0]);
+            $rest = $minifier->str_replace_first($function . $expr, '', $match[0]);
             $rest = preg_replace_callback($pattern, $callback, $rest);
 
             return $placeholder . $rest;
@@ -734,17 +733,18 @@ class CSS extends Minify
 
     /**
      * Replace custom properties, whose values may be used in scenarios where
-     * we wouldn't want them to be minified (e.g. inside calc)
+     * we wouldn't want them to be minified (e.g. inside calc).
      */
     protected function extractCustomProperties()
     {
         // PHP only supports $this inside anonymous functions since 5.4
         $minifier = $this;
         $this->registerPattern(
-            '/(?<=^|[;}])(--[^:;{}"\'\s]+)\s*:([^;{}]+)/m',
+            '/(?<=^|[;}{])\s*(--[^:;{}"\'\s]+)\s*:([^;{}]+)/m',
             function ($match) use ($minifier) {
                 $placeholder = '--custom-' . count($minifier->extracted) . ':0';
                 $minifier->extracted[$placeholder] = $match[1] . ':' . trim($match[2]);
+
                 return $placeholder;
             }
         );
