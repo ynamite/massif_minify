@@ -42,6 +42,11 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 
 ## Last Changes
 
+### Version 1.3.3 // 21.03.2023
+
+-   Updated vendors
+-   improved PHP >8.2 compatibility
+
 ### Version 1.3.2 // 15.12.2021
 
 -   added yrewrite multidomain capability
