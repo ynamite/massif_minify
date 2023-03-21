@@ -11,7 +11,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.3.0
+ * @version 1.3.3
  */
 
 use MatthiasMullie\Minify;
