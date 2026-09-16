@@ -140,7 +140,8 @@ echo '
 }
 
 #<?=$package?>form input[type=checkbox] + div label:before {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
     font-size: 20px;
     width: 30px;
     text-align: center;

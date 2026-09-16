@@ -11,7 +11,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.3.3
+ * @version 1.3.4
  */
 
 use MatthiasMullie\Minify;
@@ -57,8 +57,6 @@ class massif_minify
 		if ($search_it_indexer == "" && $search_it_highlighter != "") {
 			$search_it_indexer = 'search_it_highlighter';
 		}
-
-		$addon = rex_addon::get('massif_minify');
 
 		//throw new rex_exception('test');
 
@@ -253,27 +251,19 @@ class massif_minify
 	public static function minifyHTML(\rex_extension_point $ep)
 	{
 
-		$addon = rex_addon::get('massif_minify');
-
 		require_once rex_path::addon('massif_minify', 'vendor/minify/src/Minify.php');
 		require_once rex_path::addon('massif_minify', 'vendor/minify/src/CSS.php');
 		require_once rex_path::addon('massif_minify', 'vendor/minify/src/JS.php');
 		require_once rex_path::addon('massif_minify', 'vendor/minify/src/Exception.php');
 
-		$cssMinifier = new Minify\CSS();
-		$jsMinifier = new Minify\JS();
-
+		// fresh instance per <style> block: Minify::add() accumulates, a shared instance would leak earlier blocks into later ones
+		// jsMinifier intentionally unset, inline JS minification broke output (see README 1.2.3)
 		$html = Minify_HTML::minify($ep->getSubject(), array(
-			'cssMinifier' => function ($css) use ($cssMinifier) {
-				$cssMinifier->add($css);
-				return $cssMinifier->minify();
-			},/*
-			'jsMinifier' => 'JSMinPlus::minify',
-			,
-			'jsMinifier' => function($js) use ($jsMinifier){
-				$jsMinifier->add($js);
-				return $jsMinifier->minify();
-			},*/
+			'cssMinifier' => function ($css) {
+				$m = new Minify\CSS();
+				$m->add($css);
+				return $m->minify();
+			},
 			'xhtml' => false
 		));
 		if (self::$minify_to_single_line) {

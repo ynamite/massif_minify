@@ -42,6 +42,11 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 
 ## Last Changes
 
+### Version 1.3.4 // 16.09.2026
+
+-   fixed: HTML-Minify hat CSS aller vorherigen `<style>`-Blöcke in jeden weiteren Block kopiert (#18)
+-   fixed: Checkboxen in den Einstellungen zeigten keine Icons (Font Awesome 6) (#19)
+
 ### Version 1.3.3 // 21.03.2023
 
 -   Updated vendors
