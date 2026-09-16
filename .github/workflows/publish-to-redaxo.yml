@@ -1,0 +1,35 @@
+name: Publish release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build-release-and-redaxo_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      # No composer install: vendor/ is committed to the repo and must ship.
+      - name: Create release archive
+        run: |
+          zip -r ${{ github.event.repository.name }}.zip . \
+            -x "${{ github.event.repository.name }}.zip" \
+            -x "*.git*" \
+            -x "CLAUDE.md" \
+            -x "*.DS_Store" \
+            -x "*Thumbs.db"
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ github.event.repository.name }}.zip
+          name: ${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.zip
+
+      - uses: FriendsOfREDAXO/installer-action@v1
+        with:
+          myredaxo-username: ${{ secrets.MYREDAXO_USERNAME }}
+          myredaxo-api-key: ${{ secrets.MYREDAXO_API_KEY }}
+          description: ${{ github.event.release.body }}
