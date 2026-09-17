@@ -11,7 +11,7 @@
  * @author studio[at]massif.ch Yves Torres
  *
  * @package redaxo5
- * @version 1.3.4
+ * @version 1.3.5
  */
 
 use MatthiasMullie\Minify;
@@ -58,7 +58,7 @@ class massif_minify
 			$search_it_indexer = 'search_it_highlighter';
 		}
 
-		//throw new rex_exception('test');
+		$addon = rex_addon::get('massif_minify');
 
 		$cssDir = $addon->getConfig('css_dir');
 		$scssDir = $addon->getConfig('scss_dir');

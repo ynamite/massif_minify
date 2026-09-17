@@ -42,6 +42,10 @@ Grundsätzlich habe ich das Addon für eigene Zwecke geschrieben und möchte den
 
 ## Last Changes
 
+### Version 1.3.5 // 17.09.2026
+
+-   Hotfix: Backend-Fehler "Call to a member function getConfig() on null" in 1.3.4
+
 ### Version 1.3.4 // 16.09.2026
 
 -   fixed: HTML-Minify hat CSS aller vorherigen `<style>`-Blöcke in jeden weiteren Block kopiert (#18)
